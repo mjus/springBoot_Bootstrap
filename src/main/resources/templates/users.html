@@ -25,7 +25,7 @@
     </div>
 </nav>
 <br>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -79,7 +79,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Edit user th:text="${user.login}"</h4>
+                                                        <h4 class="modal-title">Edit user</h4>
                                                         <button type="button" class="close" data-dismiss="modal">&times;
                                                         </button>
                                                     </div>
@@ -113,7 +113,7 @@
                                                                        th:value="${user.password}"
                                                                        id="inputPasswordUpdate"
                                                                        class="form-control bbq_license input"
-                                                                      required>
+                                                                       required>
                                                             </div>
                                                             <div class="form-group input-group-sm">
                                                                 <label for="inputRoleUpdate">Role</label>
@@ -123,21 +123,14 @@
                                                                        required>
                                                             </div>
                                                             <div class="modal-footer">
-                                                            <input type="button" onclick="history.back();" value="back"/>
-                                                            <button class="btn btn-primary">Edit user</button>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-primary">Edit user</button>
                                                             </div>
                                                         </form>
-                                                    </div>
-                                                    <div class="modal-footer">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
-
 
                                     </td>
                                 </tr>
