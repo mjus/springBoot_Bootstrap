@@ -41,11 +41,6 @@ public class GeneralController {
         return "hello";
     }
 
-    @GetMapping(value = "add")
-    public String getAddUser() {
-        return "addUser";
-    }
-
     @GetMapping(value = "users")
     public ModelAndView getUsers() {
         List<User> users = userService.getAllUsers();
@@ -89,7 +84,6 @@ public class GeneralController {
                            @RequestParam(value = "email") String email) {
 
         Set<Role> roles = new HashSet<>();
-        role = role.toLowerCase().replaceAll("[\\[\\]]","");
         if(role.contains("admin")){
             roles.add(new Role("ROLE_ADMIN"));
         } else if(role.contains("user")){

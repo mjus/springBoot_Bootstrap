@@ -1,6 +1,5 @@
 package web.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -57,9 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // делаем страницу регистрации недоступной для авторизированных пользователей
                 .authorizeRequests()
                 //страницы аутентификаци доступна всем
-                .antMatchers("/login").anonymous()
+//                .antMatchers("/login").anonymous()
                 // защищенные URL
                 .antMatchers("/users").access("hasAnyRole('ADMIN')")
+//                .antMatchers("/myservice/*").permitAll()
                 .antMatchers("/hello").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated();
     }
