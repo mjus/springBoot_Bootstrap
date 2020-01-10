@@ -39,11 +39,6 @@ public class User  implements UserDetails, Serializable {
         this.email = email;
         this.roles = roles;
     }
-    public User(String login, String password, String email) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-    }
 
     public User(long id, String login, String password, String email, Set<Role> roles) {
         this.id = id;
@@ -123,4 +118,8 @@ public class User  implements UserDetails, Serializable {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return roles.stream().toString();
+    }
 }

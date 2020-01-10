@@ -58,39 +58,15 @@ public class GeneralController {
     }
 
     @PostMapping(value = "users/add")
-    public View addUser(@RequestParam(value = "login") String login,
-                        @RequestParam(value = "password") String password,
-                        @RequestParam(value = "role") String role,
-                        @RequestParam(value = "email") String email) {
-        if (isValidate(login, password, email)) {
-            Set<Role> roles = new HashSet<>();
-            role = role.toLowerCase();
-            if(role.contains("admin")){
-                roles.add(new Role("ROLE_ADMIN"));
-            } else if(role.contains("user")){
-                roles.add(new Role("ROLE_USER"));
-            } else roles.add(new Role(role));
-            User user = new User(login, password, email,roles);
-            userService.add(user);
-        }
+    public View addUser(@ModelAttribute User user) {
+        userService.add(user);
         return new RedirectView("/users");
     }
 
+
     @PostMapping(value = "users/update/{id}")
-    public View updateUser(@PathVariable("id") long userId,
-                           @RequestParam(value = "login") String login,
-                           @RequestParam(value = "password") String password,
-                           @RequestParam(value = "role") String role,
-                           @RequestParam(value = "email") String email) {
-
-        Set<Role> roles = new HashSet<>();
-        if(role.contains("admin")){
-            roles.add(new Role("ROLE_ADMIN"));
-        } else if(role.contains("user")){
-            roles.add(new Role("ROLE_USER"));
-        } else roles.add(new Role(role));
-        userService.update(new User(userId, login, password, email, roles));
-
+    public View updateUser(@ModelAttribute User user) {
+        userService.add(user);
         return new RedirectView("/users");
     }
 

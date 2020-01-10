@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
@@ -25,7 +25,7 @@
     </div>
 </nav>
 <br>
-<div class="container-fluid">
+<div>
     <div class="row">
         <div class="col-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -53,9 +53,11 @@
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                              aria-labelledby="nav-home-tab">
                             <table class="table table-striped">
+
                                 <tr>
                                     <td colspan="6"><b>All users</b></td>
                                 </tr>
+
                                 <tr>
                                     <th>ID</th>
                                     <th>Role</th>
@@ -83,7 +85,6 @@
                                                         <button type="button" class="close" data-dismiss="modal">&times;
                                                         </button>
                                                     </div>
-
                                                     <div class="modal-body" align="center">
                                                         <form id="formUpdateUserModal" th:method="post"
                                                               th:action="@{/users/update/{id}(id=${user.id})}">
@@ -123,10 +124,14 @@
                                                                        required>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-light"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
                                                                 <button class="btn btn-primary">Edit user</button>
                                                             </div>
                                                         </form>
+                                                    </div>
+                                                    <div class="modal-footer">
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,30 +165,36 @@
                                                 <dd><input type="text" placeholder="Password" name="password"></dd>
                                             </dl>
                                             <dl>
-                                                <dt>Role</dt>
-                                                <dd><input type="text" placeholder="Role" name="role"></dd>
-                                            </dl>
-                                            <dl>
-                                                <button class="btn btn-success">Add new user</button>
-                                            </dl>
-                                            <th></th>
-                                        </div>
-                                    </form>
-                                </tr>
+                                                  <select name="roles" multiple required placeholder="Role">
+                                                    <option disabled>Choose role</option>
+                                                    <div>
+                                <tr th:each="role : ${role}">
+                                    <option th:value="${role.id}" th:text="${role.name}"/>
+                                    </th:forEach>
                             </div>
+                            </select>
+                            </dl>
+                            <dl>
+                                <button class="btn btn-success">Add new user</button>
+                            </dl>
+                            <th></th>
                         </div>
+                        </form>
+                        </tr>
                     </div>
-
-
-                </div>
-                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    <h3>User page</h3>
-                    <br>
-                    Hello admin admin!
                 </div>
             </div>
+
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <h3>User page</h3>
+            <br>
+            Hello admin admin!
         </div>
     </div>
+</div>
+</div>
 </div>
 
 <script src="css/style.css"></script>

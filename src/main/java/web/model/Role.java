@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "role")
-public class Role implements GrantedAuthority {
+public class Role implements GrantedAuthority, Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,11 +60,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        if(role.contains("ADMIN")){
-            return "admin";
-        } else if(role.contains("USER")){
-            return "user";
-        }
         return role;
     }
 }
