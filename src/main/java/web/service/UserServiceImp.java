@@ -1,6 +1,8 @@
 package web.service;
 
+import web.model.Role;
 import web.model.User;
+import web.repository.RoleDao;
 import web.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +18,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @Transactional
     @Override
@@ -35,6 +40,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userDao.findAll();
     }
 
+    @Override
+    public List<Role> getAllRoles() {
+        return roleDao.findAll();
+    }
+
     @Transactional
     @Override
     public void update(User user) {
@@ -45,6 +55,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public void delete(long id) {
         userDao.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public Role getRoleById(Long id) {
+        return roleDao.getRoleById(id);
     }
 
     @Transactional

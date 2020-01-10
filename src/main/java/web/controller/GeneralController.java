@@ -44,8 +44,10 @@ public class GeneralController {
     @GetMapping(value = "users")
     public ModelAndView getUsers() {
         List<User> users = userService.getAllUsers();
+        List<Role> listRoles = userService.getAllRoles();
         ModelAndView modelAndView = new ModelAndView("users");
         modelAndView.addObject("users", users);
+        modelAndView.addObject("listRoles", listRoles);
         return modelAndView;
     }
 
@@ -57,16 +59,26 @@ public class GeneralController {
         return modelAndView;
     }
 
+    private void refreshUser (User user, Long[] idRoles) {
+        Set<Role> roles = new HashSet<>();
+        for (int i = 0; i < idRoles.length; i++) {
+            Role role = userService.getRoleById(idRoles[i]);
+            roles.add(role);
+        }
+        user.setRoles(roles);
+    }
+
     @PostMapping(value = "users/add")
-    public View addUser(@ModelAttribute User user) {
+    public View addUser(@ModelAttribute User user, @RequestParam("rolesNewUser") Long[] idRoles) {
+        refreshUser(user, idRoles);
         userService.add(user);
         return new RedirectView("/users");
     }
 
-
     @PostMapping(value = "users/update/{id}")
-    public View updateUser(@ModelAttribute User user) {
-        userService.add(user);
+    public View updateUser(@ModelAttribute User user, @RequestParam("rolesNewUser") Long[] idRoles) {
+        refreshUser(user, idRoles);
+        userService.update(user);
         return new RedirectView("/users");
     }
 

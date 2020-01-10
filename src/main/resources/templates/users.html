@@ -116,12 +116,13 @@
                                                                        class="form-control bbq_license input"
                                                                        required>
                                                             </div>
-                                                            <div class="form-group input-group-sm">
-                                                                <label for="inputRoleUpdate">Role</label>
-                                                                <input type="text" name="role" th:value="${user.roles}"
-                                                                       id="inputRoleUpdate"
-                                                                       class="form-control input"
-                                                                       required>
+                                                            <div>
+                                                                <select name="rolesNewUser" multiple required placeholder="Role">
+                                                                    <option disabled>Choose role</option>
+                                                                    <div th:each="role : ${listRoles}">
+                                                                        <option th:value="${role.id}" th:text="${role.role}"/>
+                                                                    </div>
+                                                                </select>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-light"
@@ -165,12 +166,13 @@
                                                 <dd><input type="text" placeholder="Password" name="password"></dd>
                                             </dl>
                                             <dl>
-                                                  <select name="roles" multiple required placeholder="Role">
+                                                <select name="rolesNewUser" multiple required placeholder="Role">
                                                     <option disabled>Choose role</option>
-                                                    <div>
-                                <tr th:each="role : ${role}">
-                                    <option th:value="${role.id}" th:text="${role.name}"/>
-                                    </th:forEach>
+                                                    <div th:each="role : ${listRoles}">
+                                                        <option th:value="${role.id}" th:text="${role.role}"/>
+                                                    </div>
+                                                </select>
+                                            </dl>
                             </div>
                             </select>
                             </dl>
