@@ -15,7 +15,6 @@ public class Role implements GrantedAuthority, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
