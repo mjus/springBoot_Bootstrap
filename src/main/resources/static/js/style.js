@@ -1,21 +1,3 @@
-function getAllUsers() {
-    $.ajax({url: "http://localhost:8080/api/users/"}).then(function (userList) {
-        var userListHtml = document.getElementById('userListHtml');
-        for (var i = userList.length - 1; i >= 0; i--) {
-            addUserPage(userListHtml, userList[i]);
-        }
-    });
-}
-
-function getAllRoles() {
-
-}
-
-// $(document).ready(function () {
-//     getAllUsers();
-//     getAllRoles();
-// })
-
 $('#modalButton').click(function (e) {
     var form = $("#modalForm");
     var data = getFormData(form);
@@ -69,4 +51,28 @@ function reloadTable(data) {
     html += '</tbody></table>'
     $('#usertable').html(html)
 }
+
+$('#addButton').click(function (e) {
+    var form = $("#idForm");
+    var data = getFormData(form);
+    console.log(data)
+    $.ajax({
+        type: 'POST',
+        url: '/api/users',
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $.ajax({
+                url: '/api/users',
+                dataType: 'json',
+                success: function (data) {
+                    reloadTable(data)
+                }
+            })
+        }
+    })
+    $('.nav-tabs a[href="#nav-usertbl"]').tab('show')
+    $('#idForm input').val("")
+})
 

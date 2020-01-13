@@ -1,6 +1,5 @@
 package web.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import web.model.User;
 import org.springframework.http.MediaType;
@@ -10,7 +9,7 @@ import web.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/users")
 public class RestUserController {
 
     private final UserService userService;
@@ -19,24 +18,25 @@ public class RestUserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public List<User> getAll(){
-        return userService.getAllUsers();
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 
-    @GetMapping ("/{id}")
-    public User get(@PathVariable long id){
-        return userService.getUserById(id);
+    @GetMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void create(@RequestBody User user) {
         userService.add(user);
     }
 
     @PutMapping
     public void edit(@RequestBody User user) {
-        userService.add(user);
+        userService.update(user);
     }
 
     @DeleteMapping(value = "/{id}")

@@ -25,7 +25,7 @@ public class GeneralController {
     }
 
     @GetMapping
-    public View test() {
+    public View general() {
         return new RedirectView("/users");
     }
 

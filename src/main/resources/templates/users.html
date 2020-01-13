@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin panel</title>
+    <title>users</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -81,9 +80,6 @@
                                                     <form id="modalForm">
                                                         <div class="modal-header">
                                                             <h4 class="modal-title">Edit user</h4>
-                                                            <button type="button" class="close" data-dismiss="modal">
-                                                                &times;
-                                                            </button>
                                                         </div>
                                                         <div class="modal-body" align="center">
                                                             <form id="formUpdateUserModal" th:method="post"
@@ -156,7 +152,7 @@
                             </table>
                             <div align="center">
                                 <tr>
-                                    <form th:action="@{/users/add}" th:method="post">
+                                    <form id="idForm">
                                         <div class="align-content-center">
                                             <dl>
                                                 <dt>Email</dt>
@@ -182,7 +178,9 @@
                                         </select>
                                         </dl>
                                         <dl>
-                                            <button class="btn btn-success">Add new user</button>
+                                            <button type="button" id="addButton" class="btn btn-success" formaction="/admin"
+                                                    formmethod="get">Add new user
+                                            </button>
                                         </dl>
                                         <th></th>
                                     </form>
