@@ -10,7 +10,7 @@ import web.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/users", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestUserController {
 
     private final UserService userService;
@@ -29,9 +29,8 @@ public class RestUserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> create(@RequestBody User user) {
-        User created = userService.add(user);
+    @PostMapping()
+    public void create(@RequestBody User user) {
         userService.add(user);
     }
 
