@@ -53,11 +53,9 @@
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                              aria-labelledby="nav-home-tab">
                             <table class="table table-striped">
-
                                 <tr>
                                     <td colspan="6"><b>All users</b></td>
                                 </tr>
-
                                 <tr>
                                     <th>ID</th>
                                     <th>Role</th>
@@ -117,20 +115,22 @@
                                                                        required>
                                                             </div>
                                                             <div>
-                                                                <select name="rolesNewUser" multiple required placeholder="Role">
+                                                                <select name="rolesNewUser" multiple required
+                                                                        placeholder="Role">
                                                                     <option disabled>Choose role</option>
                                                                     <div th:each="role : ${listRoles}">
-                                                                        <option th:value="${role.id}" th:text="${role.role}"/>
+                                                                        <option th:value="${role.id}"
+                                                                                th:text="${role.role}"/>
                                                                     </div>
                                                                 </select>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
                                                                 <button class="btn btn-primary">Edit user</button>
                                                             </div>
                                                         </form>
-                                                    </div>
-                                                    <div class="modal-footer">
                                                     </div>
                                                 </div>
                                             </div>
@@ -171,30 +171,27 @@
                                                     </div>
                                                 </select>
                                             </dl>
+                                        </div>
+                                        </select>
+                                        </dl>
+                                        <dl>
+                                            <button class="btn btn-success">Add new user</button>
+                                        </dl>
+                                        <th></th>
+                                    </form>
+                                </tr>
                             </div>
-                            </select>
-                            </dl>
-                            <dl>
-                                <button class="btn btn-success">Add new user</button>
-                            </dl>
-                            <th></th>
                         </div>
-                        </form>
-                        </tr>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <h3>User page</h3>
+                    <br>
+                    Hello admin admin!
+                </div>
             </div>
-
-
-        </div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-            <h3>User page</h3>
-            <br>
-            Hello admin admin!
         </div>
     </div>
-</div>
-</div>
 </div>
 
 <script src="css/style.css"></script>
@@ -203,5 +200,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Подключаем Bootstrap JS -->
 <script src="js/bootstrap.min.js"></script>
+<script>
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var login = button.data('login')
+        var email = button.data('email')
+        var password = button.data('password')
+        var role = button.data('role')
+        var modal = $(this)
+        modal.find('#username').val(login)
+        modal.find('#email').val(email)
+        modal.find('#password').val(password)
+        modal.find('#role').val(role)
+    })
+</script>
 </body>
 </html>

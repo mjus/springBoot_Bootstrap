@@ -1,5 +1,6 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import web.model.Role;
 import web.model.User;
 import web.service.UserService;
@@ -16,8 +17,9 @@ import java.util.*;
 @RequestMapping("/")
 public class GeneralController {
 
-    private final UserService userService;
+    private UserService userService;
 
+    @Autowired
     public GeneralController(UserService userService) {
         this.userService = userService;
     }
@@ -59,15 +61,6 @@ public class GeneralController {
         return modelAndView;
     }
 
-    private void refreshUser (User user, Long[] idRoles) {
-        Set<Role> roles = new HashSet<>();
-        for (int i = 0; i < idRoles.length; i++) {
-            Role role = userService.getRoleById(idRoles[i]);
-            roles.add(role);
-        }
-        user.setRoles(roles);
-    }
-
     @PostMapping(value = "users/add")
     public View addUser(@ModelAttribute User user, @RequestParam("rolesNewUser") Long[] idRoles) {
         refreshUser(user, idRoles);
@@ -88,7 +81,12 @@ public class GeneralController {
         return new RedirectView("/users");
     }
 
-    boolean isValidate(String s1, String s2, String s3) {
-        return !s1.isEmpty() && !s2.isEmpty() && !s3.isEmpty();
+    private void refreshUser (User user, Long[] idRoles) {
+        Set<Role> roles = new HashSet<>();
+        for (int i = 0; i < idRoles.length; i++) {
+            Role role = userService.getRoleById(idRoles[i]);
+            roles.add(role);
+        }
+        user.setRoles(roles);
     }
 }
