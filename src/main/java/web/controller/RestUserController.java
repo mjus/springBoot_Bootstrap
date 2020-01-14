@@ -37,9 +37,9 @@ public class RestUserController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> userUpdate(@Valid @RequestBody User user) {
+    @ResponseStatus(HttpStatus.OK)
+    public void addUser(@RequestBody User user) {
         userService.add(user);
-        return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @PutMapping

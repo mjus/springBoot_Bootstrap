@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "role")
 public class Role implements GrantedAuthority, Serializable {
-    @JsonIgnore
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

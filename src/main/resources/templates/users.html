@@ -80,7 +80,7 @@
                             </table>
                             <div align="center">
                                 <tr>
-                                    <form id="idForm">
+                                    <form id="formAddUser">
                                         <div class="align-content-center">
                                             <dl>
                                                 <dt>Email</dt>
@@ -95,20 +95,14 @@
                                                 <dd><input type="text" placeholder="Password" name="password"></dd>
                                             </dl>
                                             <dl>
-                                                <select name="rolesNewUser" multiple required placeholder="Role">
-                                                    <option disabled>Choose role</option>
-                                                    <div th:each="role : ${roles}">
-                                                        <option th:value="${role.id}" th:text="${role.role}"/>
-                                                    </div>
+                                                <select name="rolesNewUser" multiple required placeholder="Role" id="roleListHtml">
                                                 </select>
                                             </dl>
                                         </div>
                                         </select>
                                         </dl>
                                         <dl>
-                                            <button type="button" id="addButton" class="btn btn-success" formaction="/admin"
-                                                    formmethod="get">Add new user
-                                            </button>
+                                            <button class="btn btn-success" onclick="addUser()">Add new user</button>
                                         </dl>
                                         <th></th>
                                     </form>
