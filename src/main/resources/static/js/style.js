@@ -19,28 +19,35 @@ function getAllRoles() {
 $(document).ready(function () {
     getAllUsers();
     getAllRoles();
-})
+});
 
 function addUserPage(userListHtml, user) {
     userListHtml.insertAdjacentHTML('afterBegin', strAddUser(user));
 }
 
 function strAddUser(user) {
-    return "<tr id='userList" + user.id + "'>" +
-        "<td align='center'>" + user.id + "</td>" +
-        "<td>" + user.name + "</td>" +
+    return "<tr id='userList'" + user.id + ">" +
+        "<td>" + user.id + "</td>" +
+        "<td>" + changeRoleToStr(user.roles) + "</td>" +
         "<td>" + user.login + "</td>" +
         "<td>" + user.password + "</td>" +
-        "<td>" + changeRoleToStr(user.role) + "</td></form>" +
-        "<td><button id='" + user.id + "' class='btn btn-info' type='button' onclick='showModalUserUpdate(this.id);'>Изменить</button></td>" +
-        "<td><button id='" + user.id + "' onclick='deleteUser(this.id);' class='btn btn-danger' type='button'>Удалить</button></td></tr>";
+        "<td>" + user.email + "</td>" +
+        "<td><button id='" + user.id + "' class='btn btn-info' type='button' >Изменить</button></td>" +
+        "<td><button id='" + user.id + "' class='btn btn-danger' type='button'>Удалить</button></td></tr>";
+}
+
+function deleteUser(id) {
+
+}
+
+function showModalUserUpdate() {
+
 }
 
 function changeRoleToStr(roles) {
     var strRole = '';
     for (var i = 0; i < roles.length; i++) {
-        strRole = strRole + roles[i].name + ',';
+        strRole = strRole + roles[i].role + ',';
     }
     return strRole.substring(0, strRole.length - 1);
 }
-
