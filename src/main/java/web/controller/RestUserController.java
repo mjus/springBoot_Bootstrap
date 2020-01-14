@@ -1,6 +1,8 @@
 package web.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.ModelAndView;
+import web.model.Role;
 import web.model.User;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +11,7 @@ import web.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/users")
+@RequestMapping(value = "/api")
 public class RestUserController {
 
     private final UserService userService;
@@ -18,10 +20,16 @@ public class RestUserController {
         this.userService = userService;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping(value = "/roles", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Role>> getRoles() {
+        List<Role> roles = userService.getAllRoles();
+        return ResponseEntity.ok(roles);
     }
 
     @GetMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,8 +47,4 @@ public class RestUserController {
         userService.update(user);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable("id") Integer id){
-        userService.delete(id);
-    }
 }

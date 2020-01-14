@@ -10,11 +10,13 @@ import java.util.Set;
 @Entity
 @Table(name = "role")
 public class Role implements GrantedAuthority, Serializable {
+    @JsonIgnore
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
@@ -52,6 +54,7 @@ public class Role implements GrantedAuthority, Serializable {
         this.role = role;
     }
 
+    @JsonIgnore
     @Override
     public String getAuthority() {
         return role;

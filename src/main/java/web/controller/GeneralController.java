@@ -45,11 +45,11 @@ public class GeneralController {
 
     @GetMapping(value = "users")
     public ModelAndView getUsers() {
-        List<User> users = userService.getAllUsers();
-        List<Role> listRoles = userService.getAllRoles();
+//        List<User> users = userService.getAllUsers();
+//        List<Role> listRoles = userService.getAllRoles();
         ModelAndView modelAndView = new ModelAndView("users");
-        modelAndView.addObject("users", users);
-        modelAndView.addObject("listRoles", listRoles);
+//        modelAndView.addObject("users", users);
+//        modelAndView.addObject("listRoles", listRoles);
         return modelAndView;
     }
 
@@ -75,7 +75,7 @@ public class GeneralController {
         return new RedirectView("/users");
     }
 
-    @PostMapping(value = "users/delete/{id}")
+    @DeleteMapping(value = "users/delete/{id}")
     public View deleteUser(@PathVariable("id") long userId) {
         userService.delete(userId);
         return new RedirectView("/users");

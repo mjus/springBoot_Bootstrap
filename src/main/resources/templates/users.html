@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="js/style.js"></script>
 
 </head>
 <body>
@@ -51,98 +52,8 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                              aria-labelledby="nav-home-tab">
-                            <table class="table table-striped">
-                                <tr>
-                                    <td colspan="6"><b>All users</b></td>
-                                </tr>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Role</th>
-                                    <th>Login</th>
-                                    <th>Password</th>
-                                    <th>Email</th>
-                                    <th>Edit</th>
-                                </tr>
-                                <tr th:each="user : ${users}">
-                                    <td th:text="${user.id}"></td>
-                                    <td th:text="${user.roles}"></td>
-                                    <td th:text="${user.login}"></td>
-                                    <td th:text="${user.password}"></td>
-                                    <td th:text="${user.email}"></td>
-                                    <td>
-
-                                        <button type="button" class="btn btn-info" data-toggle="modal"
-                                                th:data-target="'#modal'+${user.id}">Edit
-                                        </button>
-                                        <div class="modal fade" th:attr="id='modal'+${user.id}" id="myModal">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form id="modalForm">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Edit user</h4>
-                                                        </div>
-                                                        <div class="modal-body" align="center">
-                                                            <form id="formUpdateUserModal" th:method="post"
-                                                                  th:action="@{/users/update/{id}(id=${user.id})}">
-                                                                <div class="form-group input-group-sm">
-                                                                    <label>ID</label>
-                                                                    <input type="email" name="email"
-                                                                           th:value="${user.id}"
-                                                                           class="form-control input" disabled
-                                                                           required>
-                                                                </div>
-                                                                <div class="form-group input-group-sm">
-                                                                    <label for="inputEmailUpdate">Email</label>
-                                                                    <input type="email" name="email"
-                                                                           th:value="${user.email}"
-                                                                           id="inputEmailUpdate"
-                                                                           class="form-control input"
-                                                                           required>
-                                                                </div>
-                                                                <div class="form-group input-group-sm">
-                                                                    <label for="inputLoginUpdate">Login</label>
-                                                                    <input type="text" name="login"
-                                                                           th:value="${user.login}"
-                                                                           id="inputLoginUpdate"
-                                                                           class="form-control input"
-                                                                           required>
-                                                                </div>
-                                                                <div class="form-group input-group-sm">
-                                                                    <label for="inputPasswordUpdate">Password</label>
-                                                                    <input type="text" name="password"
-                                                                           th:value="${user.password}"
-                                                                           id="inputPasswordUpdate"
-                                                                           class="form-control bbq_license input"
-                                                                           required>
-                                                                </div>
-                                                                <div>
-                                                                    <select name="rolesNewUser" multiple required
-                                                                            placeholder="Role">
-                                                                        <option disabled>Choose role</option>
-                                                                        <div th:each="role : ${listRoles}">
-                                                                            <option th:value="${role.id}"
-                                                                                    th:text="${role.role}"/>
-                                                                        </div>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default"
-                                                                            data-dismiss="modal">Close
-                                                                    </button>
-                                                                    <button type="button" id="modalButton" class="btn btn-primary form-group-item" data-dismiss="modal">
-                                                                        Edit user
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </th:forEach>
-                            </table>
+                            <h5 class="px-3">All users</h5>
+                            <div id="usertable"></div>
                         </div>
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <table class="table table-striped">
@@ -204,6 +115,5 @@
 <!-- Подключаем jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Подключаем Bootstrap JS -->
-<script src="js/style.js"></script>
 </body>
 </html>

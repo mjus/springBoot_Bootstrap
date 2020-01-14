@@ -84,31 +84,37 @@ public class User  implements UserDetails, Serializable {
         this.roles = roles;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return getLogin();
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
@@ -118,8 +124,4 @@ public class User  implements UserDetails, Serializable {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return roles.stream().toString();
-    }
 }
