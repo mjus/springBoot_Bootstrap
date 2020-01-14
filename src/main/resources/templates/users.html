@@ -59,10 +59,10 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Роль</th>
-                                    <th>Логин</th>
-                                    <th>Пароль</th>
-                                    <th>Почта</th>
+                                    <th>Role</th>
+                                    <th>Login</th>
+                                    <th>Password</th>
+                                    <th>Email</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -97,7 +97,7 @@
                                             <dl>
                                                 <select name="rolesNewUser" multiple required placeholder="Role">
                                                     <option disabled>Choose role</option>
-                                                    <div th:each="role : ${listRoles}">
+                                                    <div th:each="role : ${roles}">
                                                         <option th:value="${role.id}" th:text="${role.role}"/>
                                                     </div>
                                                 </select>

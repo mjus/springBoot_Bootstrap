@@ -1,5 +1,6 @@
 package web.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.ModelAndView;
 import web.model.Role;
@@ -8,7 +9,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import web.service.UserService;
 
+import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -20,26 +24,22 @@ public class RestUserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users")
     public ResponseEntity<List<User>> getUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping(value = "/roles", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/roles")
     public ResponseEntity<List<Role>> getRoles() {
         List<Role> roles = userService.getAllRoles();
         return ResponseEntity.ok(roles);
     }
 
-    @GetMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
-        return ResponseEntity.ok(userService.getUserById(id));
-    }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void create(@RequestBody User user) {
+    @PostMapping()
+    public ResponseEntity<HttpStatus> userUpdate(@Valid @RequestBody User user) {
         userService.add(user);
+        return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -47,4 +47,8 @@ public class RestUserController {
         userService.update(user);
     }
 
+    @GetMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
 }
