@@ -121,7 +121,7 @@ function addUser() {
 }
 
 function clearTable() {
-    $( "#userListHtml" ).empty();
+    $("#userListHtml").empty();
 }
 
 function clearFormAddUser() {
