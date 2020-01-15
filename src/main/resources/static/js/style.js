@@ -66,7 +66,7 @@ function addUser() {
     });
     var data = JSON.stringify(obj);
     $.ajax({
-        url: 'api',
+        url: 'api/users',
         type: "POST",
         contentType: "application/json",
         data: data

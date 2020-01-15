@@ -7,6 +7,7 @@ import web.model.Role;
 import web.model.User;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import web.model.UserTo;
 import web.service.UserService;
 
 import javax.validation.Valid;
@@ -36,10 +37,16 @@ public class RestUserController {
         return ResponseEntity.ok(roles);
     }
 
-    @PostMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public void addUser(@RequestBody User user) {
-        userService.add(user);
+    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HttpStatus> userAdd(@Valid @RequestBody UserTo userTo) {
+        if (isValidate(userTo.getLogin(), userTo.getPassword(), userTo.getPassword())) {
+            Set<Role> roleSet = new HashSet<>();
+            roleSet.add(new Role(userTo.getRoles()));
+            User user = new User(userTo.getLogin(), userTo.getPassword(), userTo.getEmail(), roleSet);
+            userService.add(user);
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        }
+        return ResponseEntity.ok(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping
@@ -50,5 +57,14 @@ public class RestUserController {
     @GetMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
         return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id") Integer id){
+        userService.delete(id);
+    }
+
+    boolean isValidate(String s1, String s2, String s3) {
+        return !s1.isEmpty() && !s2.isEmpty() && !s3.isEmpty();
     }
 }
