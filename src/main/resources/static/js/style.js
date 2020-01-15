@@ -48,8 +48,9 @@ function deleteUser(id) {
     $.ajax({
         url: 'api/' + id,
         type: "DELETE"
-    }).done(function (data) {
-        getAllRoles(data);
+    }).done(function () {
+        clearTable();
+        getAllUsers();
     });
 }
 
@@ -82,8 +83,14 @@ function addUser() {
         data: data
     }).done(function () {
         clearFormAddUser();
+        clearTable();
         getAllUsers();
+        window.location.href = "./users";
     });
+}
+
+function clearTable() {
+    $( "#userListHtml" ).empty();
 }
 
 function clearFormAddUser() {
