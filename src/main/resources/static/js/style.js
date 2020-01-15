@@ -37,7 +37,7 @@ function strAddUser(user) {
         "<td>" + user.password + "</td>" +
         "<td>" + user.email + "</td>" +
         "<td><button id='" + user.id + "' class='btn btn-info' type='button' >Edit</button></td>" +
-        "<td><button id='" + user.id + "' class='btn btn-danger' type='button'>Delete</button></td></tr>";
+        "<td><button id='" + user.id + "' onclick='deleteUser(this.id);' class='btn btn-danger'  type='button'>Delete</button></td></tr>";
 }
 
 function strAddRole(role) {
@@ -49,7 +49,7 @@ function deleteUser(id) {
         url: 'api/' + id,
         type: "DELETE"
     }).done(function (data) {
-        showModalUpdateUser(data);
+        getAllRoles(data);
     });
 }
 
