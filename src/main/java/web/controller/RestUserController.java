@@ -7,7 +7,9 @@ import web.model.User;
 import org.springframework.web.bind.annotation.*;
 import web.service.UserService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -32,7 +34,6 @@ public class RestUserController {
     }
 
     @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
     public void addUser(@RequestBody User user) {
         userService.add(user);
     }
@@ -41,11 +42,6 @@ public class RestUserController {
     public void edit(@RequestBody User user) {
         userService.update(user);
     }
-//
-//    @GetMapping (value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<User> getUserById(@PathVariable("id") int id) {
-//        return ResponseEntity.ok(userService.getUserById(id));
-//    }
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Integer id){
