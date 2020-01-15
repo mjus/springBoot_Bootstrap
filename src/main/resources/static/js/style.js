@@ -36,8 +36,8 @@ function strAddUser(user) {
         "<td>" + user.login + "</td>" +
         "<td>" + user.password + "</td>" +
         "<td>" + user.email + "</td>" +
-        "<td><button id='" + user.id + "' class='btn btn-info' type='button' >Изменить</button></td>" +
-        "<td><button id='" + user.id + "' class='btn btn-danger' type='button'>Удалить</button></td></tr>";
+        "<td><button id='" + user.id + "' class='btn btn-info' type='button' >Edit</button></td>" +
+        "<td><button id='" + user.id + "' class='btn btn-danger' type='button'>Delete</button></td></tr>";
 }
 
 function strAddRole(role) {
@@ -45,11 +45,21 @@ function strAddRole(role) {
 }
 
 function deleteUser(id) {
-
+    $.ajax({
+        url: 'api/' + id,
+        type: "DELETE"
+    }).done(function (data) {
+        showModalUpdateUser(data);
+    });
 }
 
-function showModalUserUpdate() {
-
+function showModalUpdateUser(data) {
+    $('.input').val('');
+    var modal = $('#updateUserModal').modal('show');
+    modal.on('shown.bs.modal', function () {
+        $('#inputEmailUpdate').focus()
+    });
+    populate('#formUpdateUserModal', data);
 }
 
 function changeRoleToStr(roles) {
@@ -66,7 +76,7 @@ function addUser() {
     });
     var data = JSON.stringify(obj);
     $.ajax({
-        url: 'api/users',
+        url: 'api/',
         type: "POST",
         contentType: "application/json",
         data: data
