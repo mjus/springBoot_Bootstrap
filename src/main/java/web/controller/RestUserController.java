@@ -1,15 +1,12 @@
 package web.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import web.model.Role;
 import web.model.User;
 import org.springframework.web.bind.annotation.*;
 import web.service.UserService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api")

@@ -36,14 +36,49 @@ function strAddUser(user) {
         "<td>" + user.login + "</td>" +
         "<td>" + user.password + "</td>" +
         "<td>" + user.email + "</td>" +
-        "<td><button id='" + user.id + "' onclick='updateUser(this.id);' class='btn btn-info' type='button' >Edit</button></td>" +
+        "<td><button id='" + user.id + "' onclick='getUserUpdate(this.id);' class='btn btn-info' type='button' >Edit</button></td>" +
         "<td><button id='" + user.id + "' onclick='deleteUser(this.id);' class='btn btn-danger'  type='button'>Delete</button></td></tr>";
 }
 
-function updateUser(id) {
-    $("#custom-close").modal();
+function getUserUpdate(id) {
+    $.ajax({
+        url: 'api/' + id,
+        type: "PUT"
+    }).done(function (data) {
+        showModalUpdateUser(data);
+    });
 }
 
+function showModalUpdateUser(data) {
+    $('.input').val('');
+    var modal = $('#updateUserModal').modal('show');
+    modal.on('shown.bs.modal', function () {
+        $('#inputEmailUpdate').focus()
+    });
+    populate('#formUpdateUserModal', data);
+}
+
+function populate(frm, data) {
+    var roles = "";
+    var flag = false;
+    $.each(data, function (keyi, valuei) {
+        if (Array.isArray(valuei)) {
+            $.each(valuei, function (key, value) {
+                if (value.size % 2 !== 0) {
+                    if (flag) {
+                        roles += ", ";
+                    } else {
+                        flag = true;
+                    }
+                    roles += value.role;
+                }
+            });
+            $('[name=' + keyi + ']', frm).val(roles);
+        } else {
+            $('[name=' + keyi + ']', frm).val(valuei);
+        }
+    });
+}
 
 function strAddRole(role) {
     return "<option id='roleListHtml'" + role.id + ">" + role.role + "</option";
