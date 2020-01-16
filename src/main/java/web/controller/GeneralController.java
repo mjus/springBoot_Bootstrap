@@ -45,11 +45,7 @@ public class GeneralController {
 
     @GetMapping(value = "users")
     public ModelAndView getUsers() {
-//        List<User> users = userService.getAllUsers();
-//        List<Role> listRoles = userService.getAllRoles();
         ModelAndView modelAndView = new ModelAndView("users");
-//        modelAndView.addObject("users", users);
-//        modelAndView.addObject("listRoles", listRoles);
         return modelAndView;
     }
 
