@@ -36,7 +36,7 @@ function strAddUser(user) {
         "<td>" + user.login + "</td>" +
         "<td>" + user.password + "</td>" +
         "<td>" + user.email + "</td>" +
-        "<td><button id='" + user.id + "' onclick='updateUser(this.id);' class='btn btn-info' type='button' >Edit</button></td>" +
+        "<td><button id='" + user.id + "' class='btn btn-info' type='button' >Edit</button></td>" +
         "<td><button id='" + user.id + "' onclick='deleteUser(this.id);' class='btn btn-danger'  type='button'>Delete</button></td></tr>";
 }
 
@@ -46,7 +46,9 @@ function updateUser(id) {
 
 
 function strAddRole(role) {
-    return "<option id='roleListHtml'" + role.id + ">" + role.role + "</option";
+    // return "<option id='roleListHtml'" + role.id + ">" + role.role + "</option";
+    return "<option id='roleListHtml'" + role.id + " value='" + role.id + "'>" + role.role + "</option";
+    // return "<option id='roleListHtml'" + role.id + " value='roles\":[{\"id\":1,\"role\":\"ROLE_USER\"}]'>" + role.role + "</option";
 }
 
 function deleteUser(id) {
@@ -67,16 +69,32 @@ function changeRoleToStr(roles) {
     return strRole.substring(0, strRole.length - 1);
 }
 
+
 function addUser() {
-    var obj = $("form#formAddUser").serializeToJSON({
-        // options here
+    var sendData = {};
+    // $('form#formAddUser').each( function (index) {
+    //     if(index === 0) {
+            sendData.email = $( '#addUserEmail' ).val();
+        // } else if(index === 1) {
+            sendData.login = $( '#addUserLogin').val();
+        // } else if(index === 2) {
+            sendData.password = $( '#addUserPassword').val();
+        // }
+    // });
+    sendData.roles = [];
+    $('#roleListHtml option:selected').each( function () {
+    // $('#roleListHtml select option:selected').each( function () {
+        sendData.roles.push({
+            id: $(this).val()
+            // name: $('#roleListHtml1').val()
+        });
     });
-    var data = JSON.stringify(obj);
+
     $.ajax({
         url: 'api/',
         type: "POST",
         contentType: "application/json",
-        data: data
+        data: JSON.stringify(sendData)
     }).done(function () {
         clearFormAddUser();
         clearTable();
@@ -85,8 +103,26 @@ function addUser() {
     });
 }
 
+// function addUser() {
+//     var obj = $("form#formAddUser").serializeToJSON({
+//         // options here
+//     });
+//     var data = JSON.stringify(obj);
+//     $.ajax({
+//         url: 'api/',
+//         type: "POST",
+//         contentType: "application/json",
+//         data: data
+//     }).done(function () {
+//         clearFormAddUser();
+//         clearTable();
+//         getAllUsers();
+//         window.location.href = "./users";
+//     });
+// }
+
 function clearTable() {
-    $( "#userListHtml" ).empty();
+    $("#userListHtml").empty();
 }
 
 function clearFormAddUser() {

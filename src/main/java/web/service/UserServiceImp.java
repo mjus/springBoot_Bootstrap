@@ -25,6 +25,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void add(User user) {
+        Set<Role> roles = new HashSet<>();
+        for (Role name : user.getRoles()) {
+//            long id = 1;
+            roles.add(roleDao.getRoleById(name.getId()));
+        }
+        user.setRoles(roles);
         userDao.save(user);
     }
 
@@ -48,7 +54,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void update(User user) {
-        userDao. save(user);
+        userDao.save(user);
     }
 
     @Transactional

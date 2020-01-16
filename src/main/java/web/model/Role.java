@@ -38,6 +38,14 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
+//    public Set<User> getUsers() {
+//        return users;
+//    }
+
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
+
     public String getRole() {
         return role;
     }
@@ -46,7 +54,6 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    @JsonIgnore
     @Override
     public String getAuthority() {
         return role;

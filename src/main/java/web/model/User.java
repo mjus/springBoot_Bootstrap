@@ -26,9 +26,13 @@ public class User  implements UserDetails, Serializable {
     @Column(name = "email", unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roles;
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
+//    private Set<Role> roles;
+//@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+@JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
+private Set<Role> roles;
 
     public User() {
     }
