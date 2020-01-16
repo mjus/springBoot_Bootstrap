@@ -53,6 +53,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void update(User user) {
+        Set<Role> roles = new HashSet<>();
+        for (Role name : user.getRoles()) {
+            roles.add(roleDao.getRoleById(name.getId()));
+        }
+        user.setRoles(roles);
         userDao.save(user);
     }
 

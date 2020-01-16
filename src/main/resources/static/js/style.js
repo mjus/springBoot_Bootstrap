@@ -9,18 +9,18 @@ function getAllUsers() {
 
 function getAllRoles() {
     $.ajax({url: "http://localhost:8080/api/roles/"}).then(function (roleList) {
-        var roleListHtml = document.getElementById('roleListHtml');
+        var addRoleListHtml = document.getElementById('addRoleListHtml');
         for (var i = roleList.length - 1; i >= 0; i--) {
-            addRolePage(roleListHtml, roleList[i]);
+            addRolePage(addRoleListHtml, roleList[i]);
         }
     });
 }
 
 function getAllRoles2() {
     $.ajax({url: "http://localhost:8080/api/roles/"}).then(function (roleList) {
-        var roleListHtml = document.getElementById('roleListHtml1');
+        var roleListHtmlUpdate = document.getElementById('roleListHtmlUpdate');
         for (var i = roleList.length - 1; i >= 0; i--) {
-             addRolePage1(roleListHtml1, roleList[i]);
+             addRolePage1(roleListHtmlUpdate, roleList[i]);
         }
     });
 }
@@ -63,22 +63,48 @@ function getUserUpdate(id) {
     });
 }
 
+// function updateUser() {
+//     var obj = $("form#formUpdateUserModal").serializeToJSON({
+//         // options here
+//     });
+//     var data = JSON.stringify(obj);
+//
+//     $.ajax({
+//         url: 'api/',
+//         type: "PUT",
+//         contentType: "application/json",
+//         data: data
+//     }).done(function () {
+//         $('#updateUserModal').modal('hide');
+//         clearTable();
+//         getAllUsers();
+//     }).fail(function () {
+//     });
+// }
+
 function updateUser() {
-    var obj = $("form#formUpdateUserModal").serializeToJSON({
-        // options here
+    var sendData = {};
+    sendData.id = $( '#inputIdUpdate' ).val();
+    sendData.email = $( '#inputEmailUpdate' ).val();
+    sendData.login = $( '#inputLoginUpdate').val();
+    sendData.password = $( '#inputPasswordUpdate').val();
+    sendData.roles = [];
+    $('#roleListHtmlUpdate option:selected').each( function () {
+        sendData.roles.push({
+            id: $(this).val()
+        });
     });
-    var data = JSON.stringify(obj);
 
     $.ajax({
         url: 'api/',
         type: "PUT",
         contentType: "application/json",
-        data: data
+        data: JSON.stringify(sendData)
     }).done(function () {
-        $('#updateUserModal').modal('hide');
+        clearFormAddUser();
         clearTable();
         getAllUsers();
-    }).fail(function () {
+        window.location.href = "./users";
     });
 }
 
@@ -141,7 +167,7 @@ function addUser() {
             sendData.login = $( '#addUserLogin').val();
             sendData.password = $( '#addUserPassword').val();
     sendData.roles = [];
-    $('#roleListHtml option:selected').each( function () {
+    $('#addRoleListHtml option:selected').each( function () {
         sendData.roles.push({
             id: $(this).val()
         });
