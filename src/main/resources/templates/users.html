@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>users</title>
@@ -71,8 +71,6 @@
                                 </thead>
                                 <tbody id="userListHtml"></tbody>
                             </table>
-
-
                         </div>
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <table class="table table-striped">
@@ -86,28 +84,29 @@
                                         <div class="align-content-center">
                                             <dl>
                                                 <dt>Email</dt>
-                                                <dd><input type="email" placeholder="Enter email" name="email"></dd>
+                                                <dd><input id="addUserEmail" type="email" placeholder="Enter email"
+                                                           name="email"></dd>
                                             </dl>
                                             <dl>
                                                 <dt>Login</dt>
-                                                <dd><input type="text" placeholder="Login" name="login"></dd>
+                                                <dd><input id="addUserLogin" type="text" placeholder="Login"
+                                                           name="login"></dd>
                                             </dl>
                                             <dl>
                                                 <dt>Password</dt>
-                                                <dd><input type="text" placeholder="Password" name="password"></dd>
+                                                <dd><input id="addUserPassword" type="text" placeholder="Password"
+                                                           name="password"></dd>
                                             </dl>
                                             <dl>
-                                                <select name="roles" multiple required placeholder="Role" id="roleListHtml">
+                                                <select id="roleListHtml" name="roles" multiple required
+                                                        placeholder="Role">
                                                 </select>
                                             </dl>
                                         </div>
-                                        </select>
-                                        </dl>
                                     </form>
-                                        <dl>
-                                            <button class="btn btn-success" onclick="addUser()">Add new user</button>
-                                        </dl>
-                                        <th></th>
+                                    <dl>
+                                        <button class="btn btn-success" onclick="addUser()">Add new user</button>
+                                    </dl>
                                 </tr>
                             </div>
                         </div>
