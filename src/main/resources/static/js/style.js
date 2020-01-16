@@ -63,25 +63,6 @@ function getUserUpdate(id) {
     });
 }
 
-// function updateUser() {
-//     var obj = $("form#formUpdateUserModal").serializeToJSON({
-//         // options here
-//     });
-//     var data = JSON.stringify(obj);
-//
-//     $.ajax({
-//         url: 'api/',
-//         type: "PUT",
-//         contentType: "application/json",
-//         data: data
-//     }).done(function () {
-//         $('#updateUserModal').modal('hide');
-//         clearTable();
-//         getAllUsers();
-//     }).fail(function () {
-//     });
-// }
-
 function updateUser() {
     var sendData = {};
     sendData.id = $( '#inputIdUpdate' ).val();
