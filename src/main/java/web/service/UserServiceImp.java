@@ -27,7 +27,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public void add(User user) {
         Set<Role> roles = new HashSet<>();
         for (Role name : user.getRoles()) {
-//            long id = 1;
             roles.add(roleDao.getRoleById(name.getId()));
         }
         user.setRoles(roles);

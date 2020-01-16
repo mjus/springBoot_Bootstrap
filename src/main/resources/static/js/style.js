@@ -46,9 +46,7 @@ function updateUser(id) {
 
 
 function strAddRole(role) {
-    // return "<option id='roleListHtml'" + role.id + ">" + role.role + "</option";
     return "<option id='roleListHtml'" + role.id + " value='" + role.id + "'>" + role.role + "</option";
-    // return "<option id='roleListHtml'" + role.id + " value='roles\":[{\"id\":1,\"role\":\"ROLE_USER\"}]'>" + role.role + "</option";
 }
 
 function deleteUser(id) {
@@ -72,21 +70,13 @@ function changeRoleToStr(roles) {
 
 function addUser() {
     var sendData = {};
-    // $('form#formAddUser').each( function (index) {
-    //     if(index === 0) {
             sendData.email = $( '#addUserEmail' ).val();
-        // } else if(index === 1) {
             sendData.login = $( '#addUserLogin').val();
-        // } else if(index === 2) {
             sendData.password = $( '#addUserPassword').val();
-        // }
-    // });
     sendData.roles = [];
     $('#roleListHtml option:selected').each( function () {
-    // $('#roleListHtml select option:selected').each( function () {
         sendData.roles.push({
             id: $(this).val()
-            // name: $('#roleListHtml1').val()
         });
     });
 
@@ -102,24 +92,6 @@ function addUser() {
         window.location.href = "./users";
     });
 }
-
-// function addUser() {
-//     var obj = $("form#formAddUser").serializeToJSON({
-//         // options here
-//     });
-//     var data = JSON.stringify(obj);
-//     $.ajax({
-//         url: 'api/',
-//         type: "POST",
-//         contentType: "application/json",
-//         data: data
-//     }).done(function () {
-//         clearFormAddUser();
-//         clearTable();
-//         getAllUsers();
-//         window.location.href = "./users";
-//     });
-// }
 
 function clearTable() {
     $("#userListHtml").empty();

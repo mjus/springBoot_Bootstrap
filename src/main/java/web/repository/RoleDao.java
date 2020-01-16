@@ -13,7 +13,4 @@ public interface RoleDao extends JpaRepository<Role, Long> {
     List<Role> findAll();
 
     Role getRoleById(long id);
-
-//    @Query("SELECT Role FROM Role r where r.role = :name")
-//    Set<Role> getRoleByName(@Param("name") String name);
 }
