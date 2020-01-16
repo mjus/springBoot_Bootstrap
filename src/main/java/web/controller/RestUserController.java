@@ -1,5 +1,6 @@
 package web.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import web.model.Role;
 import web.model.User;
@@ -24,13 +25,18 @@ public class RestUserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<User> getUserTo(@PathVariable("id") int id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
     @GetMapping(value = "/roles")
     public ResponseEntity<List<Role>> getRoles() {
         List<Role> roles = userService.getAllRoles();
         return ResponseEntity.ok(roles);
     }
 
-    @PostMapping()
+    @PostMapping
     public void addUser(@RequestBody User user) {
         userService.add(user);
     }

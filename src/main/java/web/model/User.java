@@ -40,7 +40,7 @@ public class User  implements UserDetails, Serializable {
         this.roles = roles;
     }
 
-    public User(long id, String login, String password, String email, Set<Role> roles) {
+    public User(Long id, String login, String password, String email, Set<Role> roles) {
         this.id = id;
         this.login = login;
         this.password = password;

@@ -135,7 +135,7 @@
                 <form id="formUpdateUserModal">
                     <div class="form-group input-group-sm">
                         <label for="id">ID</label>
-                        <input type="text" name="id"
+                        <input type="number" name="id"
                                id="id"
                                class="form-control input"
                                required>
@@ -161,12 +161,9 @@
                                class="form-control bbq_license input"
                                required>
                     </div>
-                    <div class="form-group input-group-sm">
-                        <label for="inputRoleUpdate">Role</label>
-                        <input type="text" name="roles"
-                               id="inputRoleUpdate"
-                               class="form-control input"
-                               required>
+                    <div>
+                        <select name="roles" multiple required placeholder="Role" id="roleListHtml1">
+                        </select>
                     </div>
                 </form>
                 <div class="modal-footer">
@@ -179,7 +176,5 @@
         </div>
     </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>

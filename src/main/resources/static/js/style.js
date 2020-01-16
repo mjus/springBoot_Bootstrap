@@ -11,7 +11,16 @@ function getAllRoles() {
     $.ajax({url: "http://localhost:8080/api/roles/"}).then(function (roleList) {
         var roleListHtml = document.getElementById('roleListHtml');
         for (var i = roleList.length - 1; i >= 0; i--) {
-            addRolePage(roleListHtml, roleList[i]);
+             addRolePage(roleListHtml, roleList[i]);
+        }
+    });
+}
+
+function getAllRoles2() {
+    $.ajax({url: "http://localhost:8080/api/roles/"}).then(function (roleList) {
+        var roleListHtml = document.getElementById('roleListHtml1');
+        for (var i = roleList.length - 1; i >= 0; i--) {
+             addRolePage1(roleListHtml1, roleList[i]);
         }
     });
 }
@@ -19,6 +28,7 @@ function getAllRoles() {
 $(document).ready(function () {
     getAllUsers();
     getAllRoles();
+    getAllRoles2();
 });
 
 function addUserPage(userListHtml, user) {
@@ -29,6 +39,10 @@ function addRolePage(userListHtml, role) {
     userListHtml.insertAdjacentHTML('afterBegin', strAddRole(role));
 }
 
+function addRolePage1(userListHtml1, role) {
+    userListHtml1.insertAdjacentHTML('afterBegin', strAddRole(role));
+}
+
 function strAddUser(user) {
     return "<tr id='userList'" + user.id + ">" +
         "<td>" + user.id + "</td>" +
@@ -36,16 +50,35 @@ function strAddUser(user) {
         "<td>" + user.login + "</td>" +
         "<td>" + user.password + "</td>" +
         "<td>" + user.email + "</td>" +
-        "<td><button id='" + user.id + "' onclick='getUserUpdate(this.id);' class='btn btn-info' type='button' >Edit</button></td>" +
+        "<td><button id='" + user.id + "' onclick='getUserUpdate(this.id);' class='btn btn-info' type='button'>Edit</button></td>" +
         "<td><button id='" + user.id + "' onclick='deleteUser(this.id);' class='btn btn-danger'  type='button'>Delete</button></td></tr>";
 }
 
 function getUserUpdate(id) {
     $.ajax({
-        url: 'api/' + id,
-        type: "PUT"
+        url: 'api/user/' + id,
+        type: "GET"
     }).done(function (data) {
         showModalUpdateUser(data);
+    });
+}
+
+function updateUser() {
+    var obj = $("form#formUpdateUserModal").serializeToJSON({
+        // options here
+    });
+    var data = JSON.stringify(obj);
+
+    $.ajax({
+        url: 'api/',
+        type: "PUT",
+        contentType: "application/json",
+        data: data
+    }).done(function () {
+        $('#updateUserModal').modal('hide');
+        clearTable();
+        getAllUsers();
+    }).fail(function () {
     });
 }
 
