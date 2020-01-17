@@ -1,11 +1,12 @@
 package web.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 import web.model.Role;
 import web.model.User;
-import org.springframework.web.bind.annotation.*;
 import web.service.UserService;
+import web.service.UserServiceImp;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ import java.util.List;
 @RequestMapping(value = "/api")
 public class RestUserController {
 
-    private final UserService userService;
+    private final UserServiceImp userService;
 
-    public RestUserController(UserService userService) {
+    public RestUserController(UserServiceImp userService) {
         this.userService = userService;
     }
 
@@ -26,8 +27,18 @@ public class RestUserController {
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<User> getUserTo(@PathVariable("id") int id) {
+    public ResponseEntity<User> getUser(@PathVariable("id") int id) {
         return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @GetMapping(value = "/user/{login}")
+    public ResponseEntity<UserDetails> getUserByLogin(@PathVariable("login") String login) {
+        return ResponseEntity.ok(userService.loadUserByUsername(login));
+    }
+
+    @GetMapping(value = "/role/{id}")
+    public ResponseEntity<Role> getRole(@PathVariable("id") int id) {
+        return ResponseEntity.ok(userService.getRoleById((long) id));
     }
 
     @GetMapping(value = "/roles")

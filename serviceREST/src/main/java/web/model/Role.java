@@ -1,11 +1,8 @@
 package web.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "role")
