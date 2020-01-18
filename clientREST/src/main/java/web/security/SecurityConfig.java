@@ -25,44 +25,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        auth.inMemoryAuthentication().withUser("a").password("a").roles("USER");
+        auth.inMemoryAuthentication().withUser("u").password("u").roles("USER");
         auth.inMemoryAuthentication().withUser("s").password("s").roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.formLogin()
-//                // указываем страницу с формой логина
-//                .loginPage("/login")
-//                //указываем логику обработки при логине
-//                .successHandler(new LoginSuccessHandler())
-//                // указываем action с формы логина
-//                .loginProcessingUrl("/login")
-//                // Указываем параметры логина и пароля с формы логина
-//                .usernameParameter("login")
-//                .passwordParameter("password")
-//                // даем доступ к форме логина всем
-//                .permitAll();
-//
-//        http.logout()
-//                // разрешаем делать логаут всем
-//                .permitAll()
-//                // указываем URL логаута
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                // указываем URL при удачном логауте
-//                .logoutSuccessUrl("/login?logout")
-//                //выключаем кроссдоменную секьюрность (на этапе обучения неважна)
-//                .and().csrf().disable();
-//
-//        http
-//                // делаем страницу регистрации недоступной для авторизированных пользователей
-//                .authorizeRequests()
-//                //страницы аутентификаци доступна всем
-////                .antMatchers("/login").anonymous()
-//                // защищенные URL
-//                .antMatchers("/api/**").access("hasAnyRole('ADMIN')")
-//                .antMatchers("/hello").hasAnyRole("ADMIN", "USER")
-//                .anyRequest().authenticated();
+        http.formLogin()
+                // указываем страницу с формой логина
+                .loginPage("/login")
+                //указываем логику обработки при логине
+                .successHandler(new LoginSuccessHandler())
+                // указываем action с формы логина
+                .loginProcessingUrl("/login")
+                // Указываем параметры логина и пароля с формы логина
+                .usernameParameter("login")
+                .passwordParameter("password")
+                // даем доступ к форме логина всем
+                .permitAll();
+
+        http.logout()
+                // разрешаем делать логаут всем
+                .permitAll()
+                // указываем URL логаута
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                // указываем URL при удачном логауте
+                .logoutSuccessUrl("/login?logout")
+                //выключаем кроссдоменную секьюрность (на этапе обучения неважна)
+                .and().csrf().disable();
+
+        http
+                // делаем страницу регистрации недоступной для авторизированных пользователей
+                .authorizeRequests()
+                //страницы аутентификаци доступна всем
+//                .antMatchers("/login").anonymous()
+                // защищенные URL
+                .antMatchers("/admin").access("hasAnyRole('ADMIN')")
+                .antMatchers("/api/**").access("hasAnyRole('ADMIN')")
+                .antMatchers("/hello").hasAnyRole("ADMIN", "USER")
+                .anyRequest().authenticated();
     }
 
     @Bean

@@ -1,6 +1,9 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 import web.model.Role;
 import web.model.User;
 import web.service.UserService;
@@ -42,39 +45,70 @@ public class GeneralController {
         model.addAttribute("messages", messages);
         return "hello";
     }
+//
+//    @GetMapping(value = "admin")
+//    public String admin(){
+//        return "users";
+//    }
 
-    @GetMapping(value = "users")
-    public ModelAndView getUsers() {
+    @GetMapping(value = "admin")
+    public ModelAndView admin() {
         ModelAndView modelAndView = new ModelAndView("users");
         return modelAndView;
     }
 
-    @GetMapping(value = "users/update/{id}")
-    public ModelAndView getUserUpdate(@PathVariable("id") long userId) {
-        User user = userService.getUserById(userId);
-        ModelAndView modelAndView = new ModelAndView("update");
-        modelAndView.addObject("user", user);
-        return modelAndView;
+//    @GetMapping(value = "users")
+//    public List<User> getUsers(){
+//        return userService.getAllUsers();
+//    }
+
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping(value = "/roles", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Role>> getRoles() {
+        List<Role> roles = userService.getAllRoles();
+        return ResponseEntity.ok(roles);
+    }
+
+//    @GetMapping(value = "users/update/{id}")
+//    public ModelAndView getUserUpdate(@PathVariable("id") long userId) {
+//        User user = userService.getUserById(userId);
+//        ModelAndView modelAndView = new ModelAndView("update");
+//        modelAndView.addObject("user", user);
+//        return modelAndView;
+//    }
+
+    @GetMapping(value = "/users/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserTo(@PathVariable("id") int id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping(value = "users/add")
-    public View addUser(@ModelAttribute User user, @RequestParam("rolesNewUser") Long[] idRoles) {
-        refreshUser(user, idRoles);
+    public String addUser(@RequestBody User user) {
         userService.add(user);
-        return new RedirectView("/users");
+        return "users";
     }
+//
+//    @PostMapping(value = "users/add")
+//    public View addUser(@ModelAttribute User user, @RequestParam("rolesNewUser") Long[] idRoles) {
+//        userService.add(user);
+//        return new RedirectView("/users");
+//    }
 
-    @PostMapping(value = "users/update/{id}")
-    public View updateUser(@ModelAttribute User user, @RequestParam("rolesNewUser") Long[] idRoles) {
-        refreshUser(user, idRoles);
+    @PutMapping(value = "users/update/{id}")
+    public String updateUser(@RequestBody User user) {
         userService.update(user);
-        return new RedirectView("/users");
+        return "users";
     }
 
-    @DeleteMapping(value = "users/delete/{id}")
-    public View deleteUser(@PathVariable("id") long userId) {
+    @DeleteMapping(value = "users/{id}")
+    public String deleteUser(@PathVariable("id") long userId) {
         userService.delete(userId);
-        return new RedirectView("/users");
+        return "users";
     }
 
     private void refreshUser (User user, Long[] idRoles) {

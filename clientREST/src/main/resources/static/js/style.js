@@ -1,14 +1,35 @@
+// function getAllUsers() {
+//     $.ajax({url: "users/"}).then(function (userList) {
+//         var userListHtml = document.getElementById('userListHtml');
+//         for (var i = userList.length - 1; i >= 0; i--) {
+//             addUserPage(userListHtml, userList[i]);
+//         }
+//     });
+// }
+
 function getAllUsers() {
-    $.ajax({url: "http://localhost:8080/api/users/"}).then(function (userList) {
+    $.ajax({url: "/users/"}).then(function (userList) {
         var userListHtml = document.getElementById('userListHtml');
+
         for (var i = userList.length - 1; i >= 0; i--) {
             addUserPage(userListHtml, userList[i]);
         }
     });
 }
+// function getAllUsers() {
+//     $.ajax({
+//         url: 'users',
+//         type: "GET"
+//     }).done(function (data) {
+//         // var userListHtml = document.getElementById('userListHtml');
+//         // for (var i = userList.length - 1; i >= 0; i--) {
+//         //     addUserPage(userListHtml, userList[i]);
+//         addUserPage(data);
+//     });
+// }
 
 function getAllRoles() {
-    $.ajax({url: "http://localhost:8080/api/roles/"}).then(function (roleList) {
+    $.ajax({url: "/roles/"}).then(function (roleList) {
         var addRoleListHtml = document.getElementById('addRoleListHtml');
         for (var i = roleList.length - 1; i >= 0; i--) {
             addRolePage(addRoleListHtml, roleList[i]);
@@ -17,7 +38,7 @@ function getAllRoles() {
 }
 
 function getAllRoles2() {
-    $.ajax({url: "http://localhost:8080/api/roles/"}).then(function (roleList) {
+    $.ajax({url: "/roles/"}).then(function (roleList) {
         var roleListHtmlUpdate = document.getElementById('roleListHtmlUpdate');
         for (var i = roleList.length - 1; i >= 0; i--) {
              addRolePage1(roleListHtmlUpdate, roleList[i]);
@@ -34,6 +55,12 @@ $(document).ready(function () {
 function addUserPage(userListHtml, user) {
     userListHtml.insertAdjacentHTML('afterBegin', strAddUser(user));
 }
+
+// function addUserPage(data) {
+//     for (var i = 0; i < data.length; i++) {
+//         strAddUser(data);
+//     }
+// }
 
 function addRolePage(userListHtml, role) {
     userListHtml.insertAdjacentHTML('afterBegin', strAddRole(role));
@@ -56,7 +83,7 @@ function strAddUser(user) {
 
 function getUserUpdate(id) {
     $.ajax({
-        url: 'api/user/' + id,
+        url: 'users/update/' + id,
         type: "GET"
     }).done(function (data) {
         showModalUpdateUser(data);
@@ -77,7 +104,7 @@ function updateUser() {
     });
 
     $.ajax({
-        url: 'api/',
+        url: 'users/update/' + sendData.id,
         type: "PUT",
         contentType: "application/json",
         data: JSON.stringify(sendData)
@@ -85,7 +112,7 @@ function updateUser() {
         clearFormAddUser();
         clearTable();
         getAllUsers();
-        window.location.href = "./users";
+        window.location.href = "http://localhost:8080/admin";
     });
 }
 
@@ -126,7 +153,7 @@ function strAddRole(role) {
 
 function deleteUser(id) {
     $.ajax({
-        url: 'api/' + id,
+        url: 'users/' + id,
         type: "DELETE"
     }).done(function () {
         clearTable();
@@ -155,7 +182,7 @@ function addUser() {
     });
 
     $.ajax({
-        url: 'api/',
+        url: 'users/add',
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(sendData)
@@ -163,7 +190,7 @@ function addUser() {
         clearFormAddUser();
         clearTable();
         getAllUsers();
-        window.location.href = "./users";
+        window.location.href = "http://localhost:8080/admin";
     });
 }
 

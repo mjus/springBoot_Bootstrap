@@ -26,15 +26,15 @@ public class RestUserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping(value = "/user/{id}")
+    @GetMapping(value = "/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") int id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
-
-    @GetMapping(value = "/user/{login}")
-    public ResponseEntity<UserDetails> getUserByLogin(@PathVariable("login") String login) {
-        return ResponseEntity.ok(userService.loadUserByUsername(login));
-    }
+//
+//    @GetMapping(value = "/user/{login}")
+//    public ResponseEntity<UserDetails> getUserByLogin(@PathVariable("login") String login) {
+//        return ResponseEntity.ok(userService.loadUserByUsername(login));
+//    }
 
     @GetMapping(value = "/role/{id}")
     public ResponseEntity<Role> getRole(@PathVariable("id") int id) {

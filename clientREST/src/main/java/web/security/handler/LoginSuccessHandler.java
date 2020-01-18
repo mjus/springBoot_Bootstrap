@@ -17,63 +17,14 @@ import java.util.Collection;
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request,
-                                        HttpServletResponse response, Authentication authentication)
-            throws IOException {
-
-        handle(request, response, authentication);
-        clearAuthenticationAttributes(request);
-    }
-
-    protected void handle(HttpServletRequest request,
-                          HttpServletResponse response, Authentication authentication)
-            throws IOException {
-
-        String targetUrl = determineTargetUrl(authentication);
-
-        redirectStrategy.sendRedirect(request, response, targetUrl);
-    }
-
-    protected String determineTargetUrl(Authentication authentication) {
-        boolean isUser = false;
-        boolean isAdmin = false;
-        Collection<? extends GrantedAuthority> authorities
-                = authentication.getAuthorities();
-        for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-                isAdmin = true;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-                isUser = true;
-                break;
-            }
-        }
-
-        if (isUser) {
-            return "/hello";
-        } else if (isAdmin) {
-            return "/users";
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
+                                        HttpServletResponse httpServletResponse,
+                                        Authentication authentication) throws IOException {
+        if (authentication.getAuthorities().stream().anyMatch(x -> x.getAuthority().contains("ADMIN"))) {
+            httpServletResponse.sendRedirect("/admin");
         } else {
-            throw new IllegalStateException();
+            httpServletResponse.sendRedirect("/hello");
         }
-    }
-
-    protected void clearAuthenticationAttributes(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return;
-        }
-        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-    }
-
-    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-        this.redirectStrategy = redirectStrategy;
-    }
-
-    protected RedirectStrategy getRedirectStrategy() {
-        return redirectStrategy;
     }
 }

@@ -16,11 +16,11 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder
-                .setConnectTimeout(Duration.ofSeconds(2))
-                .setReadTimeout(Duration.ofSeconds(3))
-                .build();
-    }
+//    @Bean
+//    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
+//        return restTemplateBuilder
+//                .setConnectTimeout(Duration.ofSeconds(2))
+//                .setReadTimeout(Duration.ofSeconds(3))
+//                .build();
+//    }
 }

@@ -2,9 +2,7 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import web.model.Role;
 import web.model.User;
@@ -12,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import web.security.SecurityConfig;
+import web.security.handler.LoginSuccessHandler;
 
 import java.util.*;
 
@@ -40,7 +40,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public User getUserById(long id) {
-        return restTemplate.getForObject(serverUrl + "/api/user/" + id, User.class);
+        return restTemplate.getForObject(serverUrl + "/api/users/" + id, User.class);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public void delete(long id) {
-        restTemplate.delete(serverUrl + "/api/delete/" + id, User.class);
+        restTemplate.delete(serverUrl + "/api/" + id, User.class);
     }
 
     @Override
@@ -85,10 +85,19 @@ public class UserServiceImp implements UserService, UserDetailsService {
 //        if (user == null) {
 //            throw new UsernameNotFoundException(login);
 //        }
-        User user = restTemplate.getForObject(serverUrl + "/api/user/" + login, User.class);
+        User user = restTemplate.postForObject("http://localhost:8080/" + login, getEntity("jsonObject"), User.class);
         if (user == null) {
             throw new UsernameNotFoundException(login);
         }
         return user;
+    }
+
+    public static HttpEntity<String> getEntity(String body) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String token = Base64.getEncoder().encodeToString("s:s".getBytes());
+        headers.set("Authorization", "Basic " + token);
+
+        return new HttpEntity<>(body,headers);
     }
 }
